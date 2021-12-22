@@ -25,7 +25,8 @@
 
                         {% for product in products %}
                             <tr>
-                                <td><a href="" data-bs-toggle='modal' data-bs-target='#tableModal' id="show-btn" data-url="{% url 'show-product' product.id %}" class="rm-link">{{product.name}}</a></td>
+                                <!-- <td><a href="" data-bs-toggle='modal' data-bs-target='#tableModal' id="show-btn" data-url="{% url 'show-product' product.id %}" class="rm-link">{{product.name}}</a></td> -->
+                                <td><a href="{% url 'display-details' product.id %}" class="rm-link">{{ product.name }}</a></td>
                                 <td>{{product.price}}</td>
                                 <td>{{product.date_created}}</td>
                                 <td>{{product.category}}</td>

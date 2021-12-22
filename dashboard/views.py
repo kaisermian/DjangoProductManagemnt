@@ -56,6 +56,13 @@ class MainPage(View):
             content_type="application/json"
         )
 
+def displayProductDetails(request, pk):
+    if request.method == 'GET':
+        product = Product.objects.get(id=pk)
+        context = {}
+
+        context['product'] = product
+        return render(request, "dashboard/product_details.html", context)
 def updateProductAJAX(request, pk):
     product = Product.objects.get(id=pk)
     if request.method == 'GET':
