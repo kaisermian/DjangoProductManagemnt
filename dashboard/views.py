@@ -3,6 +3,7 @@ from django.views import View
 from dashboard.models import Product
 from dashboard.forms import ProductForm
 from django.http import HttpResponse
+from django.views.generic import CreateView
 import json
 
 class MainPage(View):
@@ -56,6 +57,11 @@ class MainPage(View):
             content_type="application/json"
         )
 
+class ProductCreateView(CreateView):
+    model = Product
+    fields = ('name', 'price', 'category')
+    template_name = "dashboard/form.html"
+
 def displayProductDetails(request, pk):
     if request.method == 'GET':
         product = Product.objects.get(id=pk)
@@ -63,90 +69,33 @@ def displayProductDetails(request, pk):
 
         context['product'] = product
         return render(request, "dashboard/product_details.html", context)
-def updateProductAJAX(request, pk):
+
+def updateProduct(request, pk):
     product = Product.objects.get(id=pk)
-    if request.method == 'GET':
-        product_data = {}
+    form = ProductForm(instance=product)
+    context = {}
+    if request.method == 'POST':
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
 
-        product_data['name'] = product.name
-        product_data['price'] = product.price
-        product_data['category'] = product.category
-
-        return HttpResponse(
-            json.dumps(product_data),
-            content_type="application/json"
-        )
-        
-    else:
-        data = json.loads(request.POST.get("data"))
-        response_data = {}
-        product.name = data['name']
-        product.price = data['price']
-        product.category = data['category']
-
-        if product.name:
-            product.save()
-            response_data['mode'] = 'success'
-            response_data['message'] = 'Product is updated successfully!'
-            
-            return HttpResponse(
-                json.dumps(response_data),
-                content_type="application/json"
-            )
-
-    response_data['mode'] = 'error'
-    response_data['message'] = 'Error in updating product'
-    return HttpResponse(
-        json.dumps(response_data),
-        content_type="application/json"
-    )
+    context = {
+        'form' : form,
+        'product': product
+    }
+    return render(request, 'dashboard/form.html', context)
 
 def deleteProduct(request, pk):
     product = Product.objects.get(id=pk)
-    if request.method == 'GET':
-        response_data = {}
 
-        response_data['name'] = product.name
-        response_data['price'] = product.price
-        response_data['category'] = product.category
-
-        return HttpResponse(
-            json.dumps(response_data),
-            content_type='application/json'
-        )
-
-    elif request.method == 'POST':
-        response_data = {}
-        product.delete()
-
-        response_data['success'] = 'success'
-        response_data['message'] = 'Product has been removed successfully!'
-
-        return HttpResponse(
-            json.dumps(response_data),
-            content_type="application/json"
-        )
-
-def showData(request, pk):
-    if request.method == 'GET':
-        product = Product.objects.get(id=pk)
-
-        response_data = {}
-
-        response_data['name'] = product.name
-        response_data['price'] = product.price
-        response_data['category'] = product.category
-        response_data['date_created'] = str(product.date_created.strftime("%d %B, %Y %I:%M %p"))
-
-        print(response_data)
-
-        return HttpResponse(
-            json.dumps(response_data),
-            content_type='application/json'
-        )
-
-        
-
+    if request.method == 'POST':
+       product.delete()
+       return redirect('/')
     
+    context = {
+        'product': product
+    }
+    return render(request, 'dashboard/delete.html', context)
 
 
