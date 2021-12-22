@@ -1,0 +1,43 @@
+body{
+    background-color: #ebeff5;
+}
+
+#total-hardwares{
+    background-color: #4cb4c7;
+}
+
+#total-softwares{
+    background-color: #7abecc
+}
+
+#total-devices{
+    background-color: #7cd1c0;
+}
+
+.head {
+    font-size: 20pt;
+    text-align: center;
+    letter-spacing: 0.6em;
+    margin-top: 10px;
+}
+
+.sized{
+    max-width: 120px;
+}
+
+.rm-link{
+    text-decoration: none;
+    color: #78aed3;
+}
+
+.btn-soft{
+    border-radius: 5px;
+    color: #fff;
+    background-color: #3a98e3;
+}
+
+.card-centered{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
