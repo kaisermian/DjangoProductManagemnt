@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include "dashboard/css.html" %}
+    <link rel="stylesheet" href="{% static 'dashboard/css/style.css' %}" />
+    {% block styles %}{% endblock %}
+    {% block page %}{% endblock %}
+</head>
+<body>
+    {% include "dashboard/navbar.html" %}
+    <div class="container-fluid">  
+        {% block content %}
+        {% endblock %}
+    </div>
+    <hr>
+    <footer class="container-fluid footer">
+        <span class="text-muted">All Rights Reserved 2021</span>
+    </footer>
+    {% include "dashboard/js.html" %}
+    {% block scripts %}{% endblock scripts %}
+</body>
+</html>
