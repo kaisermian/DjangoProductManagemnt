@@ -7,4 +7,5 @@ urlpatterns = [
     path('view/<int:pk>/', views.displayProductDetails, name="display-details"),
     path('update/<int:pk>/', views.updateProduct, name='update-product'),
     path('delete/<int:pk>/', views.deleteProduct, name='delete-product'),
+    path('hadoop/', views.PDFView.as_view(), name='show-pdf'),
 ]

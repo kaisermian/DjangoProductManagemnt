@@ -42,6 +42,11 @@ $(document).ready(function() {
         });
     }
 
+    // var viewer = $('#viewer');
+    // var pdf = $('#pdf-hidden').val();
+    // console.log(pdf);
+    // PDFObject.embed(pdf, viewer);
+
     // $('#show-btn').click(function(){
     //     console.log($('#show-btn').attr('data-url'));
     //     show_data($(this).attr('data-url'));

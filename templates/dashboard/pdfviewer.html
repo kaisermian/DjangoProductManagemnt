@@ -1,0 +1,30 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block content %}
+    <div class="container-md view-lg">
+        <div class="row d-flex justify-content-center">
+            <p class="lead txt-center mt-2"  style="font-size: 20pt; letter-spacing: 0.3em;">Narrative Report: </p>
+            <p class="lead txt-center" style="font-size: 24pt; letter-spacing: 0.3em;">Hadoop and HDFS Architecture</p>
+            <div class="col-md-7">
+                <input type="hidden" value="{{ pdf_url }}" id="pdf-hidden">
+                <div id="viewer" class="view-lg">
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+{% block scripts %}
+    <script>
+        var viewer = $('#viewer');
+        var pdf = "{% static 'dashboard/files/report.pdf' %}";
+
+        var options = {
+            height: "500px",
+            pdfOpenParams: {view: 'FitH', page: '1'},
+            forcePDFJS: true
+        }
+
+        PDFObject.embed(pdf, viewer, options);
+    </script>
+{% endblock scripts %}

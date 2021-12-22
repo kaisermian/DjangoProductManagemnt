@@ -4,7 +4,9 @@ from dashboard.models import Product
 from dashboard.forms import ProductForm
 from django.http import HttpResponse
 from django.views.generic import CreateView
+from django.conf import settings
 import json
+import os
 
 class MainPage(View):
     def get(self, request, *args, **kwargs):
@@ -62,6 +64,12 @@ class ProductCreateView(CreateView):
     fields = ('name', 'price', 'category')
     template_name = "dashboard/form.html"
 
+class PDFView(View):
+    def get(self, request, *args, **kwargs):
+        pdf_url = os.path.join(settings.STATICFILES_DIRS[0], 'dashboard/files/report.pdf')
+        print(pdf_url)
+        return render(request, 'dashboard/pdfviewer.html', {'pdf_url': pdf_url})
+
 def displayProductDetails(request, pk):
     if request.method == 'GET':
         product = Product.objects.get(id=pk)
@@ -97,5 +105,7 @@ def deleteProduct(request, pk):
         'product': product
     }
     return render(request, 'dashboard/delete.html', context)
+
+
 
 

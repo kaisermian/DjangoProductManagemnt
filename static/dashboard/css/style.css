@@ -21,6 +21,16 @@ body{
     margin-top: 10px;
 }
 
+.txt-center{
+    text-align: center;
+}
+
+.view-lg{
+    display: block;
+    min-height: 500px;
+    max-height: 700px;
+}
+
 .sized{
     max-width: 120px;
 }
