@@ -3,8 +3,6 @@ from django.views import View
 from dashboard.models import Product
 from dashboard.forms import ProductForm
 from django.http import HttpResponse
-from rest_framework.response import Response
-from dashboard.serializers import ProductSerializer
 import json
 
 class MainPage(View):
@@ -134,7 +132,6 @@ def showData(request, pk):
         response_data['date_created'] = str(product.date_created.strftime("%d %B, %Y %I:%M %p"))
 
         print(response_data)
-        serializer = ProductSerializer(product)
 
         return HttpResponse(
             json.dumps(response_data),
